@@ -9,7 +9,7 @@ import java.util.UUID;
 public class Note {
     private final static SimpleDateFormat date = new SimpleDateFormat("dd.MM.yyyy");
     @JSONField(name = "NAME", ordinal = 2)
-    private StringBuffer name;
+    private StringBuffer title;
     @JSONField(name = "CONTENT", ordinal = 3)
     private StringBuffer content;
     @JSONField(name = "DATE OF CREATE", format="dd/MM/yyyy", ordinal = 4)
@@ -17,15 +17,15 @@ public class Note {
     @JSONField(name = "ID", ordinal = 1)
     private final UUID uuid;
 
-    public Note(StringBuffer name, final Date create, StringBuffer content, UUID uuid){
-        this.name = name;
+    public Note(StringBuffer title, final Date create, StringBuffer content, UUID uuid){
+        this.title = title;
         this.create = create;
         this.content = content;
         this.uuid = uuid;
     }
 
-    public StringBuffer getName() {
-        return name;
+    public StringBuffer getTitle() {
+        return title;
     }
 
     public Date getCreate() {
@@ -40,11 +40,29 @@ public class Note {
         return uuid;
     }
 
+    public void setTitle(StringBuffer title) {
+        this.title = title;
+    }
+
+    public void setContent(StringBuffer content) {
+        this.content = content;
+    }
+
     @Override
     public String toString() {
-        return "Название заметки: " + "\u001B[32m" + name + "\u001B[0m"
+        return "_".repeat(40) + "\n" +
+                "Название заметки: " + "\u001B[32m" + title + "\u001B[0m"
                 + "\nДата создания заметки: " + "\u001B[34m" + date.format(create) + "\u001B[0m"
-                + "\n" + content;
+                + "\nID: " + uuid.toString() + "\n" + content
+                + "\n" + "_".repeat(40);
+    }
+    public String shortInfo() {
+        System.out.println();
+        return "_".repeat(40) + "\n" +
+                "Название заметки: " + "\u001B[32m" + title + "\u001B[0m"
+                + "\nДата создания заметки: " + "\u001B[34m" + date.format(create) + "\u001B[0m"
+                + "\nID: " + uuid.toString()
+                + "\n" + "_".repeat(40);
     }
 }
 
